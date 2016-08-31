@@ -15,22 +15,22 @@ use Indieteq\PDO\Log;
 class DB
 {
     # @object, The PDO object
-    private $pdo;
+    protected $pdo;
 
     # @object, PDO statement object
-    private $sQuery;
+    protected $sQuery;
 
     # @array,  The database settings
-    private $settings;
+    protected $settings;
 
     # @bool ,  Connected to the database
-    private $bConnected = false;
+    protected $bConnected = false;
 
     # @object, Object for logging exceptions
-    private $log;
+    protected $log;
 
     # @array, The parameters of the SQL query
-    private $parameters;
+    protected $parameters;
 
     /**
      *   Default Constructor
@@ -54,7 +54,7 @@ class DB
      *    3. Tries to connect to the database.
      *    4. If connection failed, exception is displayed and a log file gets created.
      */
-    private function Connect()
+    protected function Connect()
     {
         $this->settings = parse_ini_file("settings.ini.php");
         $dsn            = 'mysql:dbname=' . $this->settings["dbname"] . ';host=' . $this->settings["host"] . '';
@@ -99,7 +99,7 @@ class DB
      *    5. On exception : Write Exception into the log + SQL query.
      *    6. Reset the Parameters.
      */
-    private function Init($query, $parameters = "")
+    protected function Init($query, $parameters = "")
     {
         # Connect to database
         if (!$this->bConnected) {
@@ -293,7 +293,7 @@ class DB
      * @param  string $sql
      * @return string
      */
-    private function ExceptionLog($message, $sql = "")
+    protected function ExceptionLog($message, $sql = "")
     {
         $exception = 'Unhandled Exception. <br />';
         $exception .= $message;
